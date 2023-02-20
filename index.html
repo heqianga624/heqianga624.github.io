@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Button and Input Example</title>
+  <title>Ping Website Example</title>
   <style>
     /* 样式表中定义输入框和按钮的外观 */
     input[type="text"] {
@@ -24,18 +24,33 @@
 <body>
   <!-- 在 body 中创建文本框和按钮的表单 -->
   <form>
-    <label for="input-text">输入文本:</label>
-    <input type="text" id="input-text" name="input-text">
+    <label for="input-url">输入网址:</label>
+    <input type="text" id="input-url" name="input-url">
     <br>
-    <button type="button" onclick="displayText()">显示文本</button>
+    <button type="button" onclick="pingWebsite()">Ping</button>
   </form>
 
   <script>
-    // JavaScript 中创建函数来处理按钮点击事件并显示输入框中的文本
-    function displayText() {
-      var inputBox = document.getElementById("input-text");
-      var inputText = inputBox.value;
-      alert("你输入的文本是：" + inputText);
+    // JavaScript 中创建函数来处理按钮点击事件并ping输入框中的网址
+    function pingWebsite() {
+      var inputBox = document.getElementById("input-url");
+      var url = inputBox.value;
+      var request = new XMLHttpRequest();
+      request.open('GET', 'https://cors-anywhere.herokuapp.com/' + 'https://' + url, true);
+
+      request.onload = function() {
+        if (request.status == 200) {
+          alert(url + " 网站可以ping通");
+        } else {
+          alert(url + " 网站无法ping通");
+        }
+      };
+
+      request.onerror = function() {
+        alert("出现错误，无法ping通 " + url);
+      };
+
+      request.send();
     }
   </script>
 </body>
