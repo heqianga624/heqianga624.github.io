@@ -35,23 +35,21 @@
     function pingWebsite() {
       var inputBox = document.getElementById("input-url");
       var url = inputBox.value;
-      var request = new XMLHttpRequest();
-      request.open('GET', 'https://ping.pe/' + url + '?c=4', true);
+      var callbackName = 'pingResult'; // 回调函数名，自定义
+      var script = document.createElement('script');
+      script.src = 'https://jsonp.afeld.me/?url=https://ping.pe/' + url + '?c=4&callback=' + callbackName;
+      document.body.appendChild(script);
+    }
 
-      request.onload = function() {
-        var responseText = request.responseText;
-        if (responseText.indexOf("0% packet loss") > -1) {
-          alert(url + " 网站可以ping通");
-        } else {
-          alert(url + " 网站无法ping通");
-        }
-      };
-
-      request.onerror = function() {
-        alert("出现错误，无法ping通 " + url);
-      };
-
-      request.send();
+    // 回调函数，处理ping结果
+    function pingResult(result) {
+      var responseText = result.output;
+      var url = result.arguments[0];
+      if (responseText.indexOf("0% packet loss") > -1) {
+        alert(url + " 网站可以ping通");
+      } else {
+        alert(url + " 网站无法ping通");
+      }
     }
   </script>
 </body>
