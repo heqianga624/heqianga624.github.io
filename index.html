@@ -36,10 +36,11 @@
       var inputBox = document.getElementById("input-url");
       var url = inputBox.value;
       var request = new XMLHttpRequest();
-      request.open('GET', 'https://cors-anywhere.herokuapp.com/' + 'https://' + url, true);
+      request.open('GET', 'https://ping.pe/' + url + '?c=4', true);
 
       request.onload = function() {
-        if (request.status == 200) {
+        var responseText = request.responseText;
+        if (responseText.indexOf("0% packet loss") > -1) {
           alert(url + " 网站可以ping通");
         } else {
           alert(url + " 网站无法ping通");
