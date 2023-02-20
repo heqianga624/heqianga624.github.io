@@ -37,7 +37,7 @@
       var url = inputBox.value;
       var callbackName = 'pingResult'; // 回调函数名，自定义
       var script = document.createElement('script');
-      script.src = 'https://jsonp.afeld.me/?url=https://ping.pe/' + url + '?c=4&callback=' + callbackName;
+      script.src = 'https://ping.pe/' + url + '?c=4&callback=' + callbackName;
       document.body.appendChild(script);
     }
 
